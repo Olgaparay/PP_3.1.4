@@ -72,7 +72,7 @@ public class AdminController {
         User user = userService.findById(id);
         model.addAttribute("user", user);
         model.addAttribute("allRoles", roleService.listRoles());
-        return "viewUser";  // Переименуйте шаблон на "viewUser.html"
+        return "viewUser";
     }
 
     @DeleteMapping("/admin/delete")  //Обрабатывает запрос на удаление пользователя по его ID.

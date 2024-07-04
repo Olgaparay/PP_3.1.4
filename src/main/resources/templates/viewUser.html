@@ -13,11 +13,11 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel">Delete user</h5>
+                <h5 class="modal-title" id="viewUserModalLabel">Delete user</h5>
             </div>
             <div class="modal-body">
                 <form th:action="@{/admin/delete}" th:object="${user}" method="post">
-                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" th:field="*{id}"/>
                     <div class="form-group">
                         <label for="id">ID</label>
