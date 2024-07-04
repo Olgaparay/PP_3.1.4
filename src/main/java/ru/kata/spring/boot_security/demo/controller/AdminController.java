@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ public class AdminController {
 
     private final UserServiceImp userService;
     private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 
@@ -29,9 +31,10 @@ public class AdminController {
     }
 
     @Autowired
-    public AdminController(UserServiceImp userService, RoleService roleService) {
+    public AdminController(UserServiceImp userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/admin")  // Отображает список пользователей в административной панели
