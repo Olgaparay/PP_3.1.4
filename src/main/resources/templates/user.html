@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>UserInfo</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles for better alignment and responsiveness */
+        body {
+            padding-top: 60px; /* Offset the fixed navbar height */
+        }
+        .list-group-item-action.active {
+            z-index: 2; /* Ensure active item visibility */
+        }
+        .card-body {
+            padding: 1.25rem; /* Padding adjustment for better readability */
+        }
+        @media (max-width: 767.98px) {
+            .list-group-item-action.active {
+                margin-bottom: -1px; /* Adjust active item bottom margin */
+            }
+        }
+    </style>
+</head>
+<body>
+<!--Верхняя навигационная панель-->
+<div th:object="${user}">
+    <nav class="navbar sticky-top navbar-light bg-dark">
+        <div class="container-fluid text-white">
+            <div>
+                <a class="fw-bold text-white text-decoration-none" th:text="*{email}"></a>
+            </div>
+            <a class="text-decoration-none text-secondary" href="/logout">Logout</a>
+        </div>
+
+    </nav>
+</div>
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-lg-2 col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active">User</a>
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-9">
+            <h2>User Information Page</h2>
+            <div class="card mt-3">
+                <div class="card-header">
+                    About User
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Username</th>
+                                <th>Age</th>
+                                <th>Email</th>
+                                <th>Password</th>
+                                <th>Roles</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td th:text="${user.id}"></td>
+                                <td th:text="${user.firstName}"></td>
+                                <td th:text="${user.lastName}"></td>
+                                <td th:text="${user.username}"></td>
+                                <td th:text="${user.age}"></td>
+                                <td th:text="${user.email}"></td>
+                                <td th:text="${user.password}"></td>
+                                <td>
+                                    <ul class="list-unstyled mb-0">
+                                        <li th:each="role : ${user.roles}" th:text="${role.name}"></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
