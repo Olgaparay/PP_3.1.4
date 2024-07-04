@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -22,6 +24,8 @@ public class AdminController {
     private final UserServiceImp userService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
 
@@ -31,17 +35,19 @@ public class AdminController {
     }
 
     @Autowired
-    public AdminController(UserServiceImp userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public AdminController(UserServiceImp userService, RoleService roleService, PasswordEncoder passwordEncoder,UserRepository userRepository) {
         this.userService = userService;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/admin")  // Отображает список пользователей в административной панели
-    public String showListUsers(Model model) {
+    public String showListUsers(Model model, Principal principal) {
         List<User> users = userService.listUsers();
+        User currentUser = userRepository.findByUsername(principal.getName());
         model.addAttribute("users", users);
-        model.addAttribute("user", new User());
+        model.addAttribute("user", currentUser);
         model.addAttribute("allRoles", roleService.listRoles());
         logger.info("Отображен список пользователей");
         return "admin";
